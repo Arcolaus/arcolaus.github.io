@@ -1,6 +1,6 @@
 ---
 title: About
-description: Escaping from the noisy world--this is my neverland
+description: Escaping from the noisy world -- this is my neverland
 date: '2024-06-03'
 aliases:
   - about-us
@@ -18,6 +18,7 @@ menu:
 反反复复，等待许久，终于上线
 
 > Hangman - Chris Pureka  
+>   
 > Bottoms Up  
 > Looks like a mess we got  
 > You wanna come along for the ride  
