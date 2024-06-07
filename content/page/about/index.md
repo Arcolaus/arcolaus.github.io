@@ -17,7 +17,7 @@ menu:
 
 反反复复，等待许久，终于上线
 
-> Hangman - Chris Pureka  
+> **Hangman - Chris Pureka**  
 >   
 > Bottoms Up  
 > Looks like a mess we got  
