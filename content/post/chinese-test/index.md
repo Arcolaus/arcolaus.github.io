@@ -3,6 +3,7 @@ title: Chinese Test
 description: This is a subtitle
 date: 2020-09-09
 slug: test-chinese
+draft: true
 image: helena-hertz-wWZzXlDpMog-unsplash.jpg
 categories:
     - 测试
