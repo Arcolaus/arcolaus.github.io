@@ -62,7 +62,7 @@
                     
                     
                         
-                        <img src="/img/oasis-square_hua0e90a4dcd44a2ee0e705e180208d948_3642853_300x0_resize_q75_box.jpg" width="300"
+                        <img src="/img/oasis-square_hu12340979446713799615.jpg" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -249,19 +249,22 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#压缩软件">压缩软件</a>
+    <li><a href="#安装app">安装APP</a>
       <ol>
-        <li><a href="#keka">Keka</a></li>
+        <li><a href="#skim">Skim</a></li>
+        <li><a href="#keka">keka</a></li>
+        <li><a href="#vlc">VLC</a></li>
       </ol>
     </li>
-  </ol>
-
-  <ol>
-    <li><a href="#alacritty">Alacritty</a>
+    <li><a href="#cli">CLI</a>
       <ol>
-        <li><a href="#安装">安装</a></li>
-        <li><a href="#下载字体">下载字体</a></li>
-        <li><a href="#configuration">Configuration</a></li>
+        <li><a href="#alacritty"><del>Alacritty</del></a>
+          <ol>
+            <li><a href="#安装">安装</a></li>
+            <li><a href="#下载字体">下载字体</a></li>
+            <li><a href="#configuration">Configuration</a></li>
+          </ol>
+        </li>
         <li><a href="#powerlevel10k">powerlevel10k</a></li>
         <li><a href="#zsh-plugin">ZSH plugin</a>
           <ol>
@@ -269,18 +272,17 @@
             <li><a href="#setup-zsh-syntax-highlighting">Setup zsh-syntax-highlighting</a></li>
           </ol>
         </li>
-      </ol>
-    </li>
-    <li><a href="#miniconda3">miniconda3</a></li>
-    <li><a href="#homebrew">homebrew</a>
-      <ol>
-        <li><a href="#安装-1">安装</a></li>
-        <li><a href="#formulae和cask的区别">formulae和cask的区别</a>
+        <li><a href="#vim">VIM</a>
           <ol>
-            <li><a href="#formulae复数形式为formula">Formulae（复数形式为Formula）</a></li>
+            <li><a href="#关于vimrc位置">关于.vimrc位置</a></li>
+          </ol>
+        </li>
+        <li><a href="#miniconda3">miniconda3</a></li>
+        <li><a href="#homebrew">homebrew</a>
+          <ol>
+            <li><a href="#安装-1">安装</a></li>
+            <li><a href="#formulae和cask的区别">formulae和cask的区别</a></li>
             <li><a href="#casks">Casks</a></li>
-            <li><a href="#区别">区别</a></li>
-            <li><a href="#使用方法">使用方法</a></li>
           </ol>
         </li>
       </ol>
@@ -300,8 +302,8 @@
     <header class="article-header">
         <div class="article-image">
             <a href="/post/macbook-silicon-configuration/">
-                <img src="/post/macbook-silicon-configuration/screenshot_1_huda355ec7349bb15ec092295d7e28146c_1002860_800x0_resize_box_3.png"
-                        srcset="/post/macbook-silicon-configuration/screenshot_1_huda355ec7349bb15ec092295d7e28146c_1002860_800x0_resize_box_3.png 800w, /post/macbook-silicon-configuration/screenshot_1_huda355ec7349bb15ec092295d7e28146c_1002860_1600x0_resize_box_3.png 1600w"
+                <img src="/post/macbook-silicon-configuration/screenshot_1_hu2199763759365944487.png"
+                        srcset="/post/macbook-silicon-configuration/screenshot_1_hu2199763759365944487.png 800w, /post/macbook-silicon-configuration/screenshot_1_hu13507433574842099289.png 1600w"
                         width="800" 
                         height="450" 
                         loading="lazy"
@@ -365,7 +367,7 @@
 
 
                 <time class="article-time--reading">
-                    1 minute read
+                    2 minute read
                 </time>
             </div>
         
@@ -380,14 +382,18 @@
     <section class="article-content">
     
     
-    <h1 id="安装app">安装APP
-</h1><h2 id="压缩软件">压缩软件
-</h2><h3 id="keka">Keka
-</h3><p>官网下载免费，AppStore下载收费</p>
-<h1 id="cli">CLI
-</h1><h2 id="alacritty">Alacritty
-</h2><h3 id="安装">安装
-</h3><p>homebrew:</p>
+    <h2 id="安装app">安装APP
+</h2><h3 id="skim">Skim
+</h3><p>PDF轻量级浏览软件，homebrew下载</p>
+<h3 id="keka">keka
+</h3><p>压缩软件</p>
+<h3 id="vlc">VLC
+</h3><p>播放器</p>
+<h2 id="cli">CLI
+</h2><h3 id="alacritty"><del>Alacritty</del>
+</h3><p><del>（已放弃该软件，感觉维护力度不够，虽然够轻量级，但是没有tab页是硬伤，tmux懒得折腾了）</del></p>
+<h4 id="安装">安装
+</h4><p>homebrew:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -396,8 +402,8 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">brew install --cask alacritty
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="下载字体">下载字体
-</h3><p>homebrew:</p>
+</div><h4 id="下载字体">下载字体
+</h4><p>homebrew:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -406,8 +412,8 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">brew install font-hack-nerd-font
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="configuration">Configuration
-</h3><p>创建配置文件：</p>
+</div><h4 id="configuration">Configuration
+</h4><p>创建配置文件：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -484,72 +490,90 @@
     >GitHubGist</a></p>
 <h3 id="zsh-plugin">ZSH plugin
 </h3><h4 id="zsh-autosuggestions">zsh-autosuggestions
-</h4><p>安装</p>
+</h4><p>安装、启用：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">brew install zsh-autosuggestions
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>启用</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">echo &#34;source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh&#34; &gt;&gt; ~/.zshrc
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>生效</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">source ~/.zshrc
+</span></span><span class="line"><span class="cl">echo &#34;source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh&#34; &gt;&gt; ~/.zshrc
+</span></span><span class="line"><span class="cl">source ~/.zshrc
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="setup-zsh-syntax-highlighting">Setup zsh-syntax-highlighting
-</h4><p>安装</p>
+</h4><p>安装、启用：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">brew install zsh-syntax-highlighting
+</span></span><span class="line"><span class="cl">echo &#34;source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh&#34; &gt;&gt; ~/.zshrc
+</span></span><span class="line"><span class="cl">source ~/.zshrc
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>启用</p>
+</div><h3 id="vim">VIM
+</h3><h4 id="关于vimrc位置">关于.vimrc位置
+</h4><h5 id="系统级及本地-vimrc-文件">系统级及本地 vimrc 文件
+</h5><p>当 Vim 启动时，编辑器会去搜索一个系统级的 vimrc 文件来进行系统范围内的默认初始化工作。</p>
+<p>这个文件通常在你系统里<code>$VIM/vimrc</code>的路径下，如果没在那里，那你可以通过在 Vim 里面运行<code>:version</code>命令来找到它的正确存放位置。比如说，在我这里，这个命令的相关部分的输出结果如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">：version
+</span></span><span class="line"><span class="cl">... ... ... 
+</span></span><span class="line"><span class="cl">system vimrc file: <span class="s2">&#34;</span><span class="nv">$VIM</span><span class="s2">/vimrc&#34;</span> 
+</span></span><span class="line"><span class="cl">user vimrc file: <span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/.vimrc&#34;</span> 
+</span></span><span class="line"><span class="cl">2nd user vimrc file: <span class="s2">&#34;~/.vim/vimrc&#34;</span> 
+</span></span><span class="line"><span class="cl">user exrc file: <span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/.exrc&#34;</span> 
+</span></span><span class="line"><span class="cl">fall-back <span class="k">for</span> <span class="nv">$VIM</span>: <span class="s2">&#34;/usr/share/vim&#34;</span> 
+</span></span><span class="line"><span class="cl">... ... ...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以看到那个系统 <code>vimrc</code> 文件确实位于 <code>$VIM/vimrc</code> ，但我检查了我机子上没设置过<code>$VIM</code> 环境变量。所以在这个例子里 - 正如你在上面的输出所看到的 - <code>$VIM</code>在我这的路径是<code>/usr/share/vim</code>，是一个回落值（LCTT 译注：即如果前面失败的话，最终采用的结果）。</p>
+<p>于是我试着在这个路径寻找 <code>vimrc</code> ，我看到这个文件是存在的。如上即是我的系统<code>vimrc</code>文件，就如前面提过的那样 - 它在 Vim 启动时会被读取。</p>
+<p>在这个系统级 <code>vimrc</code> 文件被读取解析完后，编辑器会查找一个用户特定的（或者说本地的）<code>vimrc</code> 文件。</p>
+<p>这个本地 <code>vimrc</code> 的搜索顺序是：环境变量<code>VIMINIT</code>、<code>$HOME/.vimrc</code>、<code>环境变量 EXINIT</code>，和一个叫 <code>exrc</code>的文件。
+通常情况下，会存在<code>$HOME/.vimrc</code>或<code>~/.vimrc</code>这样的文件，这个文件可看作是本地<code>vimrc</code>。</p>
+<h5 id="设置-vimrc-的路径">设置 vimrc 的路径
+</h5><p>如上文所述，在 Vim 中，<code>.vimrc</code>文件是用户配置文件，用于存放 Vim 的个性化设置。这个文件通常位于用户的主目录下（也就是 <code>~/.vimrc</code>）。然而，如果你想要更改<code>.vimrc</code>文件的位置，你可以设置 VIMINIT 环境变量。 <code>VIMINIT</code> 环境变量包含了在 Vim 启动时会被执行的 Vim 命令。</p>
+<p>例如，如果你想让 Vim 使用位于 <code>/path/to/your/vimrc</code> 的配置文件，你可以设置 <code>VIMINIT</code> 环境变量如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">echo &#34;source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh&#34; &gt;&gt; ~/.zshrc
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">VIMINIT</span><span class="o">=</span><span class="s1">&#39;source /path/to/your/vimrc&#39;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>生效</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">source ~/.zshrc
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="miniconda3">miniconda3
-</h2><p>到官网使用<code>Command Line Quick install</code>安装，会安装到当前用户下；使用官网或者镜像提供的<code>.pkg</code>文件安装会使用管理员权限，安装到<code>/opt/miniconda3</code>环境下
+</div><p>你可以将这行命令添加到你的 <code>.bashrc</code> 或 <code>.bash_profile</code> 文件中（取决于你的系统和shell），以确保每次启动新的 shell 时 <code>VIMINIT</code> 都会被设置。
+然后，当你启动 Vim 时，它会执行 <code>VIMINIT</code> 环境变量中的命令，也就是 <code>source /path/to/your/vimrc</code>，从而加载你指定的 <code>.vimrc</code> 文件。</p>
+<p><strong>需要注意的是，<code>.vimrc</code> 文件中的配置仍然会影响到 Vim 的全局设置，所以在多用户环境下要谨慎使用这种方法。</strong></p>
+<h3 id="miniconda3">miniconda3
+</h3><p>到官网使用<code>Command Line Quick install</code>安装，会安装到当前用户下；使用官网或者镜像提供的<code>.pkg</code>文件安装会使用管理员权限，安装到<code>/opt/miniconda3</code>环境下
 如果安装到<code>/opt</code>目录下想要卸载，直接删除相关文件以及配置文件即可</p>
-<h2 id="homebrew">homebrew
-</h2><h3 id="安装-1">安装
-</h3><p>只能安装到<code>/opt/homebrew</code>目录下，其原因参考<a class="link" href="https://brew.sh/2021/02/05/homebrew-3.0.0/"  target="_blank" rel="noopener"
+<h3 id="homebrew">homebrew
+</h3><h4 id="安装-1">安装
+</h4><p>只能安装到<code>/opt/homebrew</code>目录下，其原因参考<a class="link" href="https://brew.sh/2021/02/05/homebrew-3.0.0/"  target="_blank" rel="noopener"
     >Release Note</a>，卸载homebrew参考<a class="link" href="https://mac.install.guide/homebrew/5"  target="_blank" rel="noopener"
     >博客</a></p>
-<h3 id="formulae和cask的区别">formulae和cask的区别
-</h3><h4 id="formulae复数形式为formula">Formulae（复数形式为Formula）
-</h4><ul>
+<h4 id="formulae和cask的区别">formulae和cask的区别
+</h4><h5 id="formulae复数形式为formula">Formulae（复数形式为Formula）
+</h5><ul>
 <li><strong>定义</strong>：Formulae是Homebrew中用于描述如何构建和安装软件的脚本文件。这些脚本通常是用Ruby语言编写的，并且存储在Homebrew的GitHub仓库中。</li>
 <li><strong>功能</strong>：Formulae负责处理源代码的下载、编译、链接以及安装过程。它们允许用户安装命令行工具或其他可以通过编译源代码来构建的软件。</li>
 <li><strong>示例</strong>：常见的命令行工具如<code>git</code>, <code>wget</code>, <code>curl</code>等都有对应的Formula。</li>
@@ -560,8 +584,8 @@
 <li><strong>功能</strong>：与Formulae不同，Casks通常用于安装那些以二进制形式发布的应用程序，比如安装程序或压缩包。Casks会将应用程序移动到<code>/Applications</code>目录，并可能创建一些符号链接或菜单项。</li>
 <li><strong>示例</strong>：像<code>google-chrome</code>, <code>visual-studio-code</code>, <code>spotify</code>这样的桌面应用就是通过Cask来安装的。</li>
 </ul>
-<h4 id="区别">区别
-</h4><ol>
+<h5 id="区别">区别
+</h5><ol>
 <li><strong>安装方式</strong>：
 <ul>
 <li>Formulae通常涉及编译源代码，而Casks则是直接安装预编译好的二进制文件或应用程序包。</li>
@@ -574,8 +598,8 @@
 </ul>
 </li>
 </ol>
-<h4 id="使用方法">使用方法
-</h4><ul>
+<h5 id="使用方法">使用方法
+</h5><ul>
 <li>安装Formulae: <code>brew install &lt;formula-name&gt;</code></li>
 <li>安装Cask: <code>brew install --cask &lt;cask-name&gt;</code></li>
 </ul>
