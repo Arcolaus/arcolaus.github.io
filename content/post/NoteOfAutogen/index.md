@@ -72,7 +72,7 @@ result = joe.initiate_chat(cathy, message="Cathy, tell me a joke.", max_turns=2)
 
 ### 在创建agent时设定参数
 有以下两个参数可以进行设定：
-1. `max_consecutive_auto_reply`：在`ConversableAgent`类中可以设定此参数，当此代理对同一个发信代理的响应次数到达一定数量时，就终止对话。(*疑问：终止的方式是什么？是直接不说话，还是说出结束语？*)
+1. `max_consecutive_auto_reply`：在`ConversableAgent`类中可以设定此参数，当此代理对同一个发信代理的**响应次数**(*注意不是接受消息次数*)到达一定数量时，就终止对话。(*疑问：终止的方式是什么？是直接不说话，还是说出结束语？*)
 2. `is_termination_msg`：检查收到的回复中是否存在结束语，e.g.
 ```python
 joe = ConversableAgent(
@@ -109,7 +109,7 @@ agent_with_number = ConversableAgent(
     "If I guess too high, say 'too high', if I guess too low, say 'too low'. ",
     llm_config=llm_config,
     is_termination_msg=lambda msg: "53" in msg["content"],  # terminate if the number is guessed by the other agent
-    human_input_mode="NEVER",  # never ask for human input
+    human_input_mode="NEVER",
 )
 
 agent_guess_number = ConversableAgent(
@@ -126,10 +126,37 @@ result = agent_with_number.initiate_chat(
     message="I have a number between 1 and 100. Guess it!",
 )
 ```
-在猜数者的`system_message`中，限定让其使用二分法(`binary search`)，可使其更快更准确得出答案，这就是RAG的一个例子(*作为ppt汇报例子：RAG原理之一-增强LLM prompt*)
+在`agent_guess_number`的`system_message`中，限定让其使用二分法(`binary search`)，可使其更快更准确得出答案，这就是RAG的一个例子(*作为ppt汇报例子：RAG原理之一-增强LLM prompt*)
 
 #### `TERMINATE`
+```python
+agent_with_number = ConversableAgent(
+    "agent_with_number",
+    system_message="You are playing a game of guess-my-number. "
+    "In the first game, you have the "
+    "number 53 in your mind, and I will try to guess it. "
+    "If I guess too high, say 'too high', if I guess too low, say 'too low'. ",
+    llm_config=llm_config,
+    max_consecutive_auto_reply=1,  # maximum number of consecutive auto-replies before asking for human input
+    is_termination_msg=lambda msg: "53" in msg["content"],  # terminate if the number is guessed by the other agent
+    human_input_mode="TERMINATE",  # ask for human input until the game is terminated
+)
 
+agent_guess_number = ConversableAgent(
+    "agent_guess_number",
+    system_message="I have a number in my mind, and you will try to guess it. "
+    "If I say 'too high', you should guess a lower number. If I say 'too low', "
+    "you should guess a higher number. ",
+    llm_config=llm_config,
+    human_input_mode="NEVER",
+)
+
+result = agent_with_number.initiate_chat(
+    agent_guess_number,
+    message="I have a number between 1 and 100. Guess it!",
+)
+```
+此例子的逻辑是，利用人工输入后会重置`max_consecutive_auto_reply`这一特性，`agent_with_number`只能回复一次`too high`或者`too low`，如果猜错则由人工接管回答`too high`或者`too low`。
 
 #### `ALWAYS`
 人工扮演猜数者
