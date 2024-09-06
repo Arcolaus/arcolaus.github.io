@@ -29,7 +29,7 @@ pip install pyautogen
 调用OpenAI的API常用配置文件，用于指定如何连接到OpenAI的服务，比如API密钥、端点URL等信息。
 
 ### `top_p`和`temperature`参数
-`top_0`有时也称`nucleus sampling`，这两个参数都是用来控制生成文本的随机性和多样性，但它们的作用方式有所不同。
+`top_p`有时也称`nucleus sampling`，这两个参数都是用来控制生成文本的随机性和多样性，但它们的作用方式有所不同。
 - **temperature**
     - `temperature` 参数决定了模型从候选词汇中选择下一个词的方式。它调整了概率分布的形状，从而影响模型的选择倾向。通常设定范围为 $[0,1]$
     - 当 `temperature` 接近0时，模型倾向于选择最有可能的词，这导致生成的文本更可预测但可能较乏味。
