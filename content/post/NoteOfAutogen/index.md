@@ -173,3 +173,126 @@ result = human_proxy.initiate_chat(
     message="10",
 )
 ```
+## Code Executor
+Code Executor组件接收输入消息(例如，包含代码块的消息)，执行并输出带有结果的消息。AutoGen 提供了两种类型的内置代码执行程序
+- 命令行代码执行程序，在 UNIX shell 等命令行环境中运行代码
+- 在交互式 Jupyter 内核中运行代码。
+对于每种类型的Code Executor，都有两种执行方式：本地执行和在Docker中执行。
+
+### CLI执行和Jupyter执行的选择
+命令行和 Jupyter 代码执行程序之间的选择取决于代理对话中代码块的性质。如果每个代码块都是一个“脚本”，它不使用以前代码块中的变量，那么命令行代码执行程序是一个不错的选择。如果某些代码块包含昂贵的计算（例如，训练机器学习模型和加载大量数据），并且希望将状态保留在内存中以避免重复计算，则 Jupyter 代码执行程序是更好的选择。
+### 本地执行逻辑以及VSCode中Jupyter执行
+![](attachments/Pasted%20image%2020240906160637.png)
+
+#### Jupyter in VSCode执行
+```python
+from autogen.coding import CodeBlock
+from autogen.coding.jupyter import JupyterCodeExecutor, LocalJupyterServer
+from autogen import ConversableAgent
+
+
+with LocalJupyterServer() as server:
+    executor = JupyterCodeExecutor(server)
+
+    code_executor_agent = ConversableAgent(
+        "code_executor_agent",
+        llm_config=False,  # Turn off LLM for this agent.
+        code_execution_config={
+            "executor": executor
+        },  # Use the local command line code executor.
+        human_input_mode="NEVER",  # Always take human input for this agent for safety.
+    )
+    message_with_code_block = """This is a message with code block.
+        The code block is below:
+        ```python
+        print("Jupyter Code Executor test")
+        ```
+        This is the end of the message.
+        """
+
+    # Generate a reply for the given code.
+    reply = code_executor_agent.generate_reply(
+        messages=[{"role": "user", "content": message_with_code_block}]
+    )
+    print(reply)
+'''
+output:
+>>>>>>>> EXECUTING CODE BLOCK (inferred language is python)... exitcode: 0 (execution succeeded) Code output: Jupyter Code Executor test
+'''
+```
+Note:
+- 在jupyter中使用Code Executor相较于CLI执行`.py`文件，要多一步连接Jupyter内核，也就是`with LocalJupyterServer() as server`这一步骤。连接内核后，再用此连接创建`JupyterCodeExecutor`。
+- 在使用Jupyter执行时要先安装依赖 `pip install 'pyautogen[jupyter-executor]'`
+- Azure OpenAI API的Azure for Students无法执行[Use Code Executor in Coversation](https://microsoft.github.io/autogen/docs/tutorial/code-executors#use-code-execution-in-conversation)的代码，原因是token超出限制(1k tokens per minutes)。虽然可以修改`code_writer_system_message`，尽量精简化其内容使得token数量少一点可以成功运行示例代码，但是prompt不够会导致结果不够准确。
+
+## Tool Use
+Agent写出的代码可靠性并不高，所以需要借助一些工具。AutoGen中tools是一些agent可以使用的已经预定义好了的函数。Agent能借助工具完成诸如搜索网页、计算、读取文件或者调用远程API的功能。
+
+### 创建工具
+Tools可以像创建普通Python函数一样进行创建：
+```python
+from typing import Annotated, Literal
+
+Operator = Literal["+", "-", "*", "/"]
+
+
+def calculator(a: int, b: int, operator: Annotated[Operator, "operator"]) -> int:
+    if operator == "+":
+        return a + b
+    elif operator == "-":
+        return a - b
+    elif operator == "*":
+        return a * b
+    elif operator == "/":
+        return int(a / b)
+    else:
+        raise ValueError("Invalid operator")
+```
+> Tips: 最好多使用类型提示来定义函数的参数和返回值，这也是对agent提供的一种prompt
+
+### 注册工具
+创建好某个tool后，再向agent注册该tool就可以在对话中调用此tool
+```python
+import os
+
+from autogen import ConversableAgent
+
+# Let's first define the assistant agent that suggests tool calls.
+assistant = ConversableAgent(
+    name="Assistant",
+    system_message="You are a helpful AI assistant. "
+    "You can help with simple calculations. "
+    "Return 'TERMINATE' when the task is done.",
+    llm_config={"config_list": [{"model": "gpt-4", "api_key": os.environ["OPENAI_API_KEY"]}]},
+)
+
+# The user proxy agent is used for interacting with the assistant agent
+# and executes tool calls.
+user_proxy = ConversableAgent(
+    name="User",
+    llm_config=False,
+    is_termination_msg=lambda msg: msg.get("content") is not None and "TERMINATE" in msg["content"],
+    human_input_mode="NEVER",
+)
+
+# Register the tool signature with the assistant agent.
+# (calculator)是装饰器的用法
+assistant.register_for_llm(name="calculator", description="A simple calculator")(calculator)
+
+# Register the tool function with the user proxy agent.
+user_proxy.register_for_execution(name="calculator")(calculator)
+```
+> Tips: 合理添加注释，帮助agent的LLM理解tool的作用
+
+## 对话模式
+AutoGen提供多个agent对话的组件。
+
+### 概览
+1. tow-agent chat
+2. sequential chat: 两个agent之间一系列的对话，对话可以将上一个对话的摘要带入下一个对话的上下文
+3. Group Chat: 一个包含多个agent的对话，在这种情况下有一个很重要的问题：下一个说话的应该是哪一个agent？为了应对多种场景，autogen有多种方式来组织agent进行对话：
+	- 多种选择下一个agent：`round_robin`, `random`, `manual`(人工选择)，以及自动选择(默认方式，使用一个LLM来决定)
+	- 提供约束条件来限制下一个发言agent
+	- 传入一个函数来自定义下一个agent。利用此特性，我们可以建立一个 **StateFlow** 来制定一个工作流。
+4. Nested Chat: 将一个工作流打包进一个agent，并在其他工作流中重复使用该agent
+
