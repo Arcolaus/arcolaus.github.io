@@ -288,7 +288,7 @@ user_proxy.register_for_execution(name="calculator")(calculator)
 AutoGen提供多个agent对话的组件。
 
 ### 概览
-1. tow-agent chat
+1. two-agent chat
 2. sequential chat: 两个agent之间一系列的对话，对话可以将上一个对话的摘要带入下一个对话的上下文
 3. Group Chat: 一个包含多个agent的对话，在这种情况下有一个很重要的问题：下一个说话的应该是哪一个agent？为了应对多种场景，autogen有多种方式来组织agent进行对话：
 	- 多种选择下一个agent：`round_robin`, `random`, `manual`(人工选择)，以及自动选择(默认方式，使用一个LLM来决定)
