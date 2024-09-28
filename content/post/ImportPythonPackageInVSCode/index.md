@@ -1,7 +1,7 @@
 +++
 title = '在VSCode中Python导入父级目录下的package，而避免使用sys.path()方法'
 date = 2024-09-28T20:19:31+08:00
-draft = true
+draft = false
 categories = [
     "Tech"
 ]
