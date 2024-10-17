@@ -1,5 +1,5 @@
 +++
-title = 'Note Of Autogen'
+title = 'AutoGen学习笔记'
 date = 2024-09-04T20:47:24+08:00
 description = "学习AutoGen的一些简单笔记和大致框架"
 draft = false

@@ -3,7 +3,7 @@ title = '在VSCode中Python导入父级目录下的package，而避免使用sys.
 date = 2024-09-28T20:19:31+08:00
 draft = false
 categories = [
-    "Tech"
+    "Python"
 ]
 tags = [
 	"Python",
